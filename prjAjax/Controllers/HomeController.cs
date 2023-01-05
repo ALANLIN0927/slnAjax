@@ -17,6 +17,11 @@ namespace prjAjax.Controllers
         {
             return View();
         }
+        public IActionResult firstAjax()
+        {
+            return View();
+        }
+
 
         public IActionResult Privacy()
         {

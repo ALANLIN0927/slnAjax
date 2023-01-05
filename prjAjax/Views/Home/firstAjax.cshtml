@@ -1,0 +1,61 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@{
+    ViewData["Title"] = "FirstAjax";
+}
+    <h1>first ajax</h1>
+    <button class="btn btn-primary" id="button1">click</button>
+    <div id="div1" class="alert-info" mt-3 p-3 w-25">a</div>
+
+    @section Scripts{
+        <script>
+           const btn =document.querySelector('#button1');
+           const theDiv=document.querySelector('#div1');
+           btn.addEventListener('click',()=>{
+
+               const xhr=new XMLHttpRequest();
+               xhr.addEventListener('load',()=>{
+
+                   const data=xhr.responseText;
+
+                   theDiv.innerHTML=`<h2>${data}</h2>`
+
+               })
+
+               xhr.open("GET","/api/index");
+               xhr.send();
+
+
+
+
+           })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </script>
+
+
+
+
+
+
+
+
+
+    }
