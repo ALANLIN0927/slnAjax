@@ -7,15 +7,23 @@ namespace prjAjax.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly DemoContext _conetxt;
 
-        public HomeController(ILogger<HomeController> logger)
+
+        public HomeController(ILogger<HomeController> logger, DemoContext conetxt)
         {
             _logger = logger;
+            _conetxt = conetxt;
         }
 
         public IActionResult Index()
         {
             return View();
+        }
+        public IActionResult test()
+        {
+            var member = _conetxt.Members;
+            return View(member);
         }
         public IActionResult firstAjax()
         {

@@ -7,13 +7,18 @@
     ViewData["Title"] = "FirstAjax";
 }
     <h1>first ajax</h1>
+    <input type="text" id="text1"/>
     <button class="btn btn-primary" id="button1">click</button>
     <div id="div1" class="alert-info" mt-3 p-3 w-25">a</div>
+    <button class="btn btn-primary" id="button1">開始</button>
+    <button class="btn btn-primary" id="button2">停止</button>
 
     @section Scripts{
         <script>
            const btn =document.querySelector('#button1');
+        const btnStop = document.querySelector('#button2');
            const theDiv=document.querySelector('#div1');
+        const txt = document.querySelector('#text1');
            btn.addEventListener('click',()=>{
 
                const xhr=new XMLHttpRequest();
@@ -21,12 +26,33 @@
 
                    const data=xhr.responseText;
 
-                   theDiv.innerHTML=`<h2>${data}</h2>`
-
+                  theDiv.innerHTML=`<h2>${data}</h2>`
+                theDiv.innerHTML += `<h2>${data}</h2>`
                })
+               xhr.addEventListener('loadstart',()=>{
+                   btn.textContent="執行中...";
+                   btn.setAttribute('disabled','disabled');
+                   theDiv.innerHTML+=`Ajax開始<br>`
+               })
+                xhr.addEventListener('loadend', () => {
+                btn.textContent = "Click";
+                btn.removeAttribute('disabled');
+                txt.value = "";
+                theDiv.innerHTML += `Ajax結束<br>`
+            })
+            xhr.addEventListener('timeout', () => {
+                theDiv.innerHTML += `伺服器忙碌中，請稍後再來<br>`
+            })
+            xhr.addEventListener('abort', () => {
+                theDiv.innerHTML += `您停止了程式的執行<br>`
+            })
 
-               xhr.open("GET","/api/index");
-               xhr.send();
+
+
+
+                xhr.open("GET","/api/index");
+                xhr.timeout = 3000;
+                xhr.send();
 
 
 
